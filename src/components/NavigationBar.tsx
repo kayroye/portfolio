@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
+import { useRouter } from 'next/navigation';
 interface NavigationProps {
   isBlog?: boolean;
 }
@@ -10,6 +10,7 @@ export default function NavigationBar({ isBlog = false }: NavigationProps) {
   const pathname = usePathname();
   const [commandInput, setCommandInput] = useState('');
   const [showCommands, setShowCommands] = useState(false);
+  const router = useRouter();
   
   const handleCommandSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ export default function NavigationBar({ isBlog = false }: NavigationProps) {
           break;
         case 'main':
         case 'exit':
-          window.location.href = 'https://kayroye.com';
+          redirectPath = '/app';
           break;
         case 'help':
           setShowCommands(true);
@@ -60,7 +61,7 @@ export default function NavigationBar({ isBlog = false }: NavigationProps) {
           redirectPath = '/contact';
           break;
         case 'blog':
-          window.location.href = 'https://blog.kayroye.com';
+          redirectPath = '/blog';
           break;
         case 'help':
           setShowCommands(true);
@@ -73,7 +74,7 @@ export default function NavigationBar({ isBlog = false }: NavigationProps) {
     
     // Redirect if needed
     if (redirectPath) {
-      window.location.href = redirectPath;
+      router.push(redirectPath);
     }
     
     // Clear input
@@ -117,7 +118,7 @@ export default function NavigationBar({ isBlog = false }: NavigationProps) {
               exit
             </Link>
           ) : (
-            <Link href="https://blog.kayroye.com" className="text-sm text-green-600 hover:text-green-400">
+            <Link href="/blog" className="text-sm text-green-600 hover:text-green-400">
               blog
             </Link>
           )}

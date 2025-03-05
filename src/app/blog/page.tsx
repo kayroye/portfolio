@@ -13,7 +13,6 @@ export default function BlogHome() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-  const [displayWelcome, setDisplayWelcome] = useState(true);
   
   useEffect(() => {
     const fetchPosts = async () => {
@@ -29,13 +28,6 @@ export default function BlogHome() {
     };
     
     fetchPosts();
-    
-    // Hide welcome message after 3 seconds
-    const timer = setTimeout(() => {
-      setDisplayWelcome(false);
-    }, 3000);
-    
-    return () => clearTimeout(timer);
   }, []);
   
   return (
@@ -43,15 +35,13 @@ export default function BlogHome() {
       <NavigationBar isBlog={true} />
       
       <main className="flex-1 container mx-auto p-4">
-        {displayWelcome && (
           <Terminal title="Welcome" className="mb-6">
             <div className="p-4">
               <TerminalText typingSpeed={20}>
                 Welcome to Kalan Roye&apos;s Blog. Exploring code, sharing insights, documenting discoveries.
               </TerminalText>
             </div>
-          </Terminal>
-        )}
+        </Terminal>
         
         <Terminal title="Blog Posts">
           <div className="p-4">
