@@ -57,7 +57,7 @@ export default function BlogPostPage(props: BlogPostParams) {
 
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono flex flex-col">
-      <NavigationBar isBlog={true} />
+      <NavigationBar location="blog" />
       
       <main className="flex-1 container mx-auto p-4">
         <div className="mb-4">

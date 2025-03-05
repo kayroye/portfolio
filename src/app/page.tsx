@@ -35,10 +35,10 @@ export default function Home() {
                 typingSpeed={25} 
                 onComplete={() => setTypingDone(true)}
               >
-                Hello, I&apos;m Kalan Roye. Welcome to my digital workspace.
+                Hey! I&apos;m Kalan Roye. Welcome to my digital workspace.
                 
-                I&apos;m a software developer focused on creating innovative, user-centered solutions.
-                My work spans across web development, system architecture, and data science.
+                I&apos;m a software developer focused on creating innovative, user-friendly solutions.
+                My work spans across web development, AI systems, and data science.
                 
                 Feel free to explore my projects, read my blog, or get in touch.
               </TerminalText>
@@ -77,7 +77,7 @@ export default function Home() {
                 </Link>
                 
                 <Link 
-                  href="https://blog.kayroye.com"
+                  href="/blog"
                   className="px-4 py-3 bg-green-900/30 text-green-400 border border-green-500/30 rounded hover:bg-green-900/50 transition-colors text-center"
                 >
                   <span className="block font-bold mb-1">Blog</span>
