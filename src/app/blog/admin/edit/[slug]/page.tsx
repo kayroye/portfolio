@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getPostData, saveBlogPost, BlogPost } from '@/utils/blog';
@@ -11,19 +11,20 @@ import Terminal from '@/components/Terminal';
 import { StaticTerminalText } from '@/components/TerminalText';
 
 interface EditPostParams {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function EditPostPage({ params }: EditPostParams) {
+export default function EditPostPage(props: EditPostParams) {
+  const params = use(props.params);
   const { slug } = params;
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [post, setPost] = useState<BlogPost | null>(null);
   const router = useRouter();
-  
+
   useEffect(() => {
     // Check for saved authentication
     const savedAuth = localStorage.getItem('blog_admin_auth');
@@ -35,7 +36,7 @@ export default function EditPostPage({ params }: EditPostParams) {
     setIsAuthenticated(true);
     fetchPost();
   }, [router, slug]);
-  
+
   const fetchPost = async () => {
     try {
       setIsLoading(true);
@@ -52,7 +53,7 @@ export default function EditPostPage({ params }: EditPostParams) {
       setIsLoading(false);
     }
   };
-  
+
   const handleSubmit = async (updatedPost: BlogPost) => {
     try {
       const success = await saveBlogPost(updatedPost);
@@ -65,7 +66,7 @@ export default function EditPostPage({ params }: EditPostParams) {
       return false;
     }
   };
-  
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-black text-green-400 font-mono flex flex-col">
@@ -81,7 +82,7 @@ export default function EditPostPage({ params }: EditPostParams) {
       </div>
     );
   }
-  
+
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono flex flex-col">
       <NavigationBar isBlog={true} />

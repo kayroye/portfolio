@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import Link from 'next/link';
 import { marked } from 'marked';
 import { getPostData, BlogPost } from '@/utils/blog';
@@ -10,17 +10,18 @@ import Terminal from '@/components/Terminal';
 import { StaticTerminalText } from '@/components/TerminalText';
 
 interface BlogPostParams {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function BlogPostPage({ params }: BlogPostParams) {
+export default function BlogPostPage(props: BlogPostParams) {
+  const params = use(props.params);
   const { slug } = params;
   const [post, setPost] = useState<BlogPost | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-  
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -41,7 +42,7 @@ export default function BlogPostPage({ params }: BlogPostParams) {
     
     fetchPost();
   }, [slug]);
-  
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -49,7 +50,7 @@ export default function BlogPostPage({ params }: BlogPostParams) {
       day: 'numeric'
     });
   };
-  
+
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono flex flex-col">
       <NavigationBar isBlog={true} />
