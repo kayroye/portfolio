@@ -1,5 +1,4 @@
-import { kv } from '@vercel/kv';
-import { put, del, list } from '@vercel/blob';
+import { put, del, list } from "@vercel/blob";
 
 export interface BlogPost {
   slug: string;
@@ -12,8 +11,15 @@ export interface BlogPost {
   content: string;
 }
 
-const BLOG_POST_PREFIX = 'blog:post:';
-const BLOG_POSTS_LIST_KEY = 'blog:posts:list';
+import { createClient } from "@vercel/kv";
+
+const kv = createClient({
+    url: process.env.KV_REST_API_URL,
+    token: process.env.KV_REST_API_TOKEN,
+});
+
+const BLOG_POST_PREFIX = "blog:post:";
+const BLOG_POSTS_LIST_KEY = "blog:posts:list";
 
 /**
  * Saves a blog post to Vercel KV
@@ -22,16 +28,17 @@ export async function saveBlogPost(post: BlogPost): Promise<boolean> {
   try {
     // Store the blog post with its slug as part of the key
     await kv.set(`${BLOG_POST_PREFIX}${post.slug}`, post);
-    
+
     // Update the list of post slugs for easy retrieval
-    const slugs: string[] = await kv.get(BLOG_POSTS_LIST_KEY) || [];
+    const slugs: string[] = (await kv.get(BLOG_POSTS_LIST_KEY)) || [];
     if (!slugs.includes(post.slug)) {
       slugs.push(post.slug);
       await kv.set(BLOG_POSTS_LIST_KEY, slugs);
     }
-    
+
     return true;
-  } catch {
+  } catch(error) {
+    console.error("Error saving blog post:", error);
     return false;
   }
 }
@@ -43,15 +50,15 @@ export async function deleteBlogPost(slug: string): Promise<boolean> {
   try {
     // Delete the post
     await kv.del(`${BLOG_POST_PREFIX}${slug}`);
-    
+
     // Update the list of post slugs
-    let slugs: string[] = await kv.get(BLOG_POSTS_LIST_KEY) || [];
-    slugs = slugs.filter(s => s !== slug);
+    let slugs: string[] = (await kv.get(BLOG_POSTS_LIST_KEY)) || [];
+    slugs = slugs.filter((s) => s !== slug);
     await kv.set(BLOG_POSTS_LIST_KEY, slugs);
-    
+
     // Clean up any associated blobs if needed
     // (Implemented in separate media function)
-    
+
     return true;
   } catch {
     return false;
@@ -64,17 +71,17 @@ export async function deleteBlogPost(slug: string): Promise<boolean> {
 export async function getSortedPostsData(): Promise<BlogPost[]> {
   try {
     // Get all post slugs
-    const slugs: string[] = await kv.get(BLOG_POSTS_LIST_KEY) || [];
-    
+    const slugs: string[] = (await kv.get(BLOG_POSTS_LIST_KEY)) || [];
+
     // Get all posts data using pipeline for efficiency
     const pipeline = kv.pipeline();
-    slugs.forEach(slug => {
+    slugs.forEach((slug) => {
       pipeline.get(`${BLOG_POST_PREFIX}${slug}`);
     });
-    
+
     const postsData = await pipeline.exec();
     const allPosts = postsData.filter(Boolean) as BlogPost[];
-    
+
     // Sort posts by date
     return allPosts.sort((a, b) => {
       if (a.date < b.date) {
@@ -105,10 +112,12 @@ export async function getPostData(slug: string): Promise<BlogPost | null> {
 /**
  * Gets all post slugs
  */
-export async function getAllPostSlugs(): Promise<{ params: { slug: string } }[]> {
-  const slugs: string[] = await kv.get(BLOG_POSTS_LIST_KEY) || [];
-  return slugs.map(slug => ({
-    params: { slug }
+export async function getAllPostSlugs(): Promise<
+  { params: { slug: string } }[]
+> {
+  const slugs: string[] = (await kv.get(BLOG_POSTS_LIST_KEY)) || [];
+  return slugs.map((slug) => ({
+    params: { slug },
   }));
 }
 
@@ -121,7 +130,7 @@ export async function uploadMedia(
 ): Promise<string | null> {
   try {
     const { url } = await put(`blog/${postSlug}/${file.name}`, file, {
-      access: 'public',
+      access: "public",
     });
     return url;
   } catch {
@@ -151,4 +160,4 @@ export async function deleteMedia(url: string): Promise<boolean> {
   } catch {
     return false;
   }
-} 
+}

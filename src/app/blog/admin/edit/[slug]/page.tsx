@@ -3,7 +3,7 @@
 import React, { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getPostData, saveBlogPost, BlogPost } from '@/utils/blog';
+import { BlogPost } from '@/utils/blog';
 import NavigationBar from '@/components/NavigationBar';
 import Footer from '@/components/Footer';
 import BlogPostForm from '@/components/BlogPostForm';
@@ -40,14 +40,19 @@ export default function EditPostPage(props: EditPostParams) {
   const fetchPost = async () => {
     try {
       setIsLoading(true);
-      const postData = await getPostData(slug);
+      // Use the API route instead of directly calling getPostData
+      const response = await fetch(`/api/blog?slug=${slug}`);
       
-      if (postData) {
+      if (response.ok) {
+        const postData = await response.json();
         setPost(postData);
-      } else {
+      } else if (response.status === 404) {
         setErrorMessage('Post not found.');
+      } else {
+        setErrorMessage('Failed to load post. Please try again.');
       }
-    } catch {
+    } catch (error) {
+      console.error('Error fetching post:', error);
       setErrorMessage('Failed to load post. Please try again.');
     } finally {
       setIsLoading(false);
@@ -56,13 +61,22 @@ export default function EditPostPage(props: EditPostParams) {
 
   const handleSubmit = async (updatedPost: BlogPost) => {
     try {
-      const success = await saveBlogPost(updatedPost);
-      if (success) {
+      // Call the API route instead of directly using saveBlogPost
+      const response = await fetch('/api/blog', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedPost),
+      });
+      
+      if (response.ok) {
         router.push('/blog/admin');
         return true;
       }
       return false;
-    } catch {
+    } catch (error) {
+      console.error("Error updating blog post:", error);
       return false;
     }
   };

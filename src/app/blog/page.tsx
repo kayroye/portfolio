@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getSortedPostsData, BlogPost } from '@/utils/blog';
+import { BlogPost } from '@/utils/blog';
 import NavigationBar from '@/components/NavigationBar';
 import Footer from '@/components/Footer';
 import Terminal from '@/components/Terminal';
@@ -18,9 +18,16 @@ export default function BlogHome() {
     const fetchPosts = async () => {
       try {
         setIsLoading(true);
-        const fetchedPosts = await getSortedPostsData();
+        const response = await fetch('/api/blog');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch posts');
+        }
+        
+        const fetchedPosts = await response.json();
         setPosts(fetchedPosts);
-      } catch {
+      } catch (error) {
+        console.error('Error fetching posts:', error);
         setErrorMessage('Failed to load posts. Please try again.');
       } finally {
         setIsLoading(false);

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { saveBlogPost, BlogPost } from '@/utils/blog';
+import { BlogPost } from '@/utils/blog';
 import NavigationBar from '@/components/NavigationBar';
 import Footer from '@/components/Footer';
 import BlogPostForm from '@/components/BlogPostForm';
@@ -24,13 +24,24 @@ export default function NewPostPage() {
   
   const handleSubmit = async (post: BlogPost) => {
     try {
-      const success = await saveBlogPost(post);
-      if (success) {
+      // Call the API route instead of directly using saveBlogPost
+      const response = await fetch('/api/blog', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(post),
+      });
+      
+      if (response.ok) {
         router.push('/blog/admin');
         return true;
       }
+      
+      console.error("Failed to save blog post");
       return false;
-    } catch {
+    } catch (error) {
+      console.error("Error saving blog post:", error);
       return false;
     }
   };

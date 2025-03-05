@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getSortedPostsData, deleteBlogPost, BlogPost } from '@/utils/blog';
+import { BlogPost } from '@/utils/blog';
 import Terminal from '@/components/Terminal';
 import { StaticTerminalText } from '@/components/TerminalText';
 import NavigationBar from '@/components/NavigationBar';
@@ -46,9 +46,17 @@ export default function AdminPage() {
   const fetchPosts = async () => {
     try {
       setIsLoading(true);
-      const fetchedPosts = await getSortedPostsData();
+      // Use the API route instead of directly calling getSortedPostsData
+      const response = await fetch('/api/blog');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch posts');
+      }
+      
+      const fetchedPosts = await response.json();
       setPosts(fetchedPosts);
-    } catch {
+    } catch (error) {
+      console.error('Error fetching posts:', error);
       setErrorMessage('Failed to load posts. Please try again.');
     } finally {
       setIsLoading(false);
@@ -63,15 +71,19 @@ export default function AdminPage() {
   const handleDeletePost = async (slug: string) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        const success = await deleteBlogPost(slug);
-        if (success) {
+        // Call the API route instead of directly using deleteBlogPost
+        const response = await fetch(`/api/blog?slug=${slug}`, {
+          method: 'DELETE',
+        });
+        
+        if (response.ok) {
           // Refresh post list
           fetchPosts();
         } else {
-          setErrorMessage('Failed to delete post. Please try again.');
+          console.error("Failed to delete post");
         }
-      } catch {
-        setErrorMessage('An error occurred while deleting the post.');
+      } catch (error) {
+        console.error("Error deleting post:", error);
       }
     }
   };

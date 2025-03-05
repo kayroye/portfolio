@@ -26,7 +26,7 @@ export default function Footer({ isBlog = false }: FooterProps) {
             GitHub
           </Link>
           <Link 
-            href="https://linkedin.com/in/kayroye" 
+            href="https://linkedin.com/in/kalan-roye" 
             target="_blank" 
             rel="noopener noreferrer"
             className="hover:text-green-400 transition-colors"
@@ -34,7 +34,7 @@ export default function Footer({ isBlog = false }: FooterProps) {
             LinkedIn
           </Link>
           <Link 
-            href="https://twitter.com/kayroye" 
+            href="https://twitter.com/kaywritescode" 
             target="_blank" 
             rel="noopener noreferrer"
             className="hover:text-green-400 transition-colors"
@@ -50,7 +50,7 @@ export default function Footer({ isBlog = false }: FooterProps) {
             </Link>
           ) : (
             <Link 
-              href="https://blog.kayroye.com" 
+              href="https://.kalanroye.com/" 
               className="hover:text-green-400 transition-colors"
             >
               Blog

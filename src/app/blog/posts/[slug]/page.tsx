@@ -3,7 +3,7 @@
 import React, { useEffect, useState, use } from 'react';
 import Link from 'next/link';
 import { marked } from 'marked';
-import { getPostData, BlogPost } from '@/utils/blog';
+import { BlogPost } from '@/utils/blog';
 import NavigationBar from '@/components/NavigationBar';
 import Footer from '@/components/Footer';
 import Terminal from '@/components/Terminal';
@@ -26,14 +26,18 @@ export default function BlogPostPage(props: BlogPostParams) {
     const fetchPost = async () => {
       try {
         setIsLoading(true);
-        const postData = await getPostData(slug);
+        const response = await fetch(`/api/blog?slug=${slug}`);
         
-        if (postData) {
+        if (response.ok) {
+          const postData = await response.json();
           setPost(postData);
-        } else {
+        } else if (response.status === 404) {
           setErrorMessage('Post not found.');
+        } else {
+          setErrorMessage('Failed to load post. Please try again.');
         }
-      } catch {
+      } catch (error) {
+        console.error('Error fetching post:', error);
         setErrorMessage('Failed to load post. Please try again.');
       } finally {
         setIsLoading(false);

@@ -301,7 +301,7 @@ export default function BlogPostForm({
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`px-4 py-2 bg-green-900/30 text-green-400 border border-green-500/30 rounded hover:bg-green-900/50 font-mono ${
+            className={`px-4 py-2 bg-green-900/30 text-green-400 border border-green-500/30 rounded hover:bg-green-900/50 font-mono cursor-pointer ${
               isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >
