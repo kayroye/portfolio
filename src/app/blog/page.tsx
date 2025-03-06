@@ -45,7 +45,7 @@ export default function BlogHome() {
           <Terminal title="Welcome" className="mb-6">
             <div className="p-4">
               <TerminalText typingSpeed={20}>
-                Welcome to Kalan Roye&apos;s Blog. Exploring code, sharing insights, documenting discoveries.
+                Welcome to my blog. Here I explore code, share insights, and document discoveries I make in my coding journey.
               </TerminalText>
             </div>
         </Terminal>

@@ -64,12 +64,13 @@ export default function Contact() {
         <Terminal title="contact.sh | ~/contact" className="mb-6">
           <div className="p-4">
             <div className="mb-4">
+              <div className="mt-6">
+                # Contact Information
+              </div>
               <TerminalText 
                 typingSpeed={25} 
                 onComplete={() => setTypingDone(true)}
               >
-                # Contact Information
-                
                 I&apos;m always open to new opportunities, collaborations, or just a friendly chat about technology.
                 
                 Feel free to reach out through any of the channels below or use the contact form to send me a message directly.
@@ -102,7 +103,7 @@ export default function Contact() {
                     
                     <div>
                       <div className="text-sm text-green-500">Availability</div>
-                      <div className="text-green-300">Open to freelance & full-time opportunities</div>
+                      <div className="text-green-300">Open to freelance, full-time, and internship opportunities</div>
                     </div>
                   </div>
                   

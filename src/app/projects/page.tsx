@@ -70,13 +70,14 @@ export default function Projects() {
         <Terminal title="projects.sh | ~/projects" className="mb-6">
           <div className="p-4">
             <div className="mb-4">
+              <div className="mt-6">
+                # Projects
+              </div>
               <TerminalText 
                 typingSpeed={25} 
                 onComplete={() => setTypingDone(true)}
-              >
-                # Projects
-                
-                Here are some of the projects I&apos;ve worked on. Each project represents a unique challenge and solution.
+              > 
+                Here are some of the projects I&apos;ve worked on. Each project&apos;s code is available on GitHub.
                 
                 Use the commands below to explore my portfolio or click on a project to view more details.
               </TerminalText>
