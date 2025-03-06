@@ -52,11 +52,11 @@ export default function Projects() {
     },
     {
       id: 4,
-      title: "Coming Soon!",
-      description: "I'm working on a few more projects that I'll be adding to my portfolio soon. Check back soon for updates!",
-      technologies: ["Hard Work", "Patience", "Time"],
-      link: "",
-      image: "/images/project4.jpg"
+      title: "J.Y.N.E",
+      description: "Just Your Neighbourhood Executable - A versatile Discord bot built with Discord.js that could do almost anything.",
+      technologies: ["Discord.js", "Node.js", "OpenAI API", "MongoDB", "Stable Diffusion", "NLTK", "FFMPEG"],
+      link: "https://github.com/kayroye/JYNE",
+      image: "/images/jyne.png"
     }
   ];
   
@@ -136,12 +136,12 @@ export default function Projects() {
                   <div className="p-4">
                     <div className="flex flex-col md:flex-row justify-between">
                       <div className="mb-4 md:mb-0">
-                        <div className="text-lg font-bold text-green-300">6+</div>
+                        <div className="text-lg font-bold text-green-300">9+</div>
                         <div className="text-sm text-green-500">Repositories</div>
                       </div>
                       
                       <div className="mb-4 md:mb-0">
-                        <div className="text-lg font-bold text-green-300">100+</div>
+                        <div className="text-lg font-bold text-green-300">250+</div>
                         <div className="text-sm text-green-500">Contributions</div>
                       </div>
                       

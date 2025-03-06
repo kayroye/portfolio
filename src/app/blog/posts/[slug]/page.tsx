@@ -361,7 +361,7 @@ export default function BlogPostPage(props: BlogPostParams) {
               )}
               
               <div className="mb-4">
-                <h1 className="text-2xl font-bold text-green-300 mb-2">{post.title}</h1>
+                <h1 className="text-2xl font-bold text-green-300 mb-2">{post.title}.txt</h1>
                 
                 <div className="flex items-center text-sm mb-4">
                   <div className="text-green-500/70 mr-4">
