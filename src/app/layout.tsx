@@ -39,6 +39,22 @@ export const metadata: Metadata = {
     creator: '@kaywritescode',
     images: ['https://kalanroye.com/og-home.png'],
   },
+  icons: {
+    icon: '/favicon.ico',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: true,
+      'max-video-preview': 10,
+      'max-image-preview': 'large',
+      'max-snippet': 100,
+    },
+  },
 };
 
 export default function RootLayout({
