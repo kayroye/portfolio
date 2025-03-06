@@ -12,7 +12,7 @@ export default function Home() {
   const [typingDone, setTypingDone] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
   
-  // After intro is typed, show the buttons
+  // Effect for animations - depends on typingDone
   useEffect(() => {
     if (typingDone) {
       const timer = setTimeout(() => {
@@ -32,7 +32,7 @@ export default function Home() {
           <div className="p-4">
             <div className="mb-4">
               <TerminalText 
-                typingSpeed={25} 
+                typingSpeed={15} 
                 onComplete={() => setTypingDone(true)}
               >
                 Hey! I&apos;m Kalan Roye. Welcome to my digital workspace.
@@ -98,7 +98,7 @@ export default function Home() {
             </div>
             
             <p className="mb-4">
-              An open-source chat app that lets users interact with each other and their preferred large language models. Developed using Vercel’s AI SDK and Socket.io.
+              An open-source chat app that lets users interact with each other and their preferred large language models. Developed using Vercel&apos;s AI SDK and Socket.io.
             </p>
             
             <Link 
@@ -108,6 +108,24 @@ export default function Home() {
               View All Projects
               <span className="ml-1">→</span>
             </Link>
+          </div>
+        </Terminal>
+
+        <Terminal title="Author's (me) Choice">
+          <div className="p-4">
+            <div className="mb-2">
+              <h2 className="text-xl font-bold text-green-300">Test Article</h2>
+              <p className="text-sm text-green-500 mb-3">2025-03-04</p>
+              <p className="text-sm text-green-500 mb-3">This is a test of the db!</p>
+
+              <Link 
+                href="/blog/posts/test-article"
+                className="text-green-400 hover:underline inline-flex items-center"
+              >
+                Read More
+                <span className="ml-1">→</span>
+              </Link>
+            </div>
           </div>
         </Terminal>
       </main>

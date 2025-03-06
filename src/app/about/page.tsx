@@ -32,14 +32,14 @@ export default function About() {
             <div className="mb-4">
                 <div className="mt-6"># About Me</div>
               <TerminalText 
-                typingSpeed={25} 
+                typingSpeed={15} 
                 onComplete={() => setTypingDone(true)}
               >
                 I&apos;m Kalan Roye, a software developer with a passion for creating elegant solutions to complex problems.&nbsp;
                 
-                With a background in computer science and several years of experience working with a variety of technologies, I specialize in full-stack development, AI integration, and building scalable applications.&nbsp;
+                With a background in computer science and several years of experience working with a variety of technologies, I specialize in full-stack development, AI integration and testing, data science, and building scalable applications.&nbsp;
                 
-                When I&apos;m not coding, you can find me catching up on the latest tech news, contributing to open-source projects, or hiking in the summer.
+                When I&apos;m not coding, you can find me catching up on the latest tech news, contributing to open-source projects, in the gym, or hiking in the summer.
               </TerminalText>
             </div>
             
@@ -58,10 +58,16 @@ export default function About() {
     "Python",
     "Java",
     "C",
+    "ARM Assembly",
     "Verse"
   ],
+  "AI": [
+    "OpenAI API",
+    "ComfyUI",
+    "Ollama"
+  ],
   "frontend": [
-    "React",
+    "React.js",
     "Next.js",
     "HTML/CSS",
     "Tailwind CSS"
@@ -72,24 +78,20 @@ export default function About() {
     "FastAPI"
   ],
   "databases": [
-    "PostgreSQL",
     "MongoDB",
     "Redis",
     "Supabase",
-    "Firebase"
+    "Firebase",
+    "Oracle Siebel CRM"
   ],
   "devOps": [
     "Docker",
     "AWS",
     "Google Cloud",
+    "Salesforce",
     "CI/CD",
     "Git",
     "Linux"
-  ],
-  "AI": [
-    "OpenAI API",
-    "ComfyUI",
-    "Ollama"
   ]
 }`}
                 </pre>
@@ -112,7 +114,7 @@ export default function About() {
                       <h3 className="text-lg font-bold text-green-300">Data Analyst @ Regional Municipality of Halton</h3>
                       <div className="text-sm text-green-500 mb-2">June 2024 - August 2024</div>
                       <p className="text-green-400">
-                        Transformed and migrated 311 operational data, automated classification, configured Salesforce environments, designed executive-level reports/dashboards, and led the creation of Halton Region&apos;s first AI chatbot prototype.
+                        Transformed and migrated 311 operational data from Oracle Siebel CRM to Salesforce; automated data classification using Excel, VBA, Python, and GPT-4o-mini; configured Salesforce environments; designed executive-level reports/dashboards; and led the creation of Halton Region&apos;s first AI chatbot prototype.
                       </p>
                     </div>
                   </div>

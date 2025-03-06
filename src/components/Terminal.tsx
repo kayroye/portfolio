@@ -1,3 +1,5 @@
+'use client';
+
 import React, { ReactNode } from 'react';
 
 interface TerminalProps {
@@ -30,6 +32,8 @@ export default function Terminal({
           <div className="w-3 h-3 rounded-full bg-green-500"></div>
         </div>
         <div className="flex-1 text-center text-sm font-medium text-green-400">{title}</div>
+        {/* Empty div to balance the control dots */}
+        <div className="w-[72px]"></div>
       </div>
       
       {/* Terminal Content */}

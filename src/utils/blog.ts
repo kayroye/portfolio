@@ -9,6 +9,7 @@ export interface BlogPost {
   author?: string;
   categories: string[];
   content: string;
+  views?: number;
 }
 
 import { createClient } from "@vercel/kv";
@@ -95,6 +96,14 @@ export async function getSortedPostsData(): Promise<BlogPost[]> {
   } catch {
     return [];
   }
+}
+
+/**
+ * Gets the latest blog post
+ */
+export async function getLatestPost(): Promise<BlogPost | null> {
+  const posts = await getSortedPostsData();
+  return posts[0] || null;
 }
 
 /**

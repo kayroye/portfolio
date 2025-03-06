@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { saveBlogPost, deleteBlogPost, getPostData, getSortedPostsData } from "@/utils/blog";
+import { saveBlogPost, deleteBlogPost, getPostData, getSortedPostsData, getLatestPost } from "@/utils/blog";
 import { BlogPost } from "@/utils/blog";
 
 export async function POST(request: NextRequest) {
   const post: BlogPost = await request.json();
+
+  post.views = 0;
 
   const saved = await saveBlogPost(post);
 
@@ -34,7 +36,13 @@ export async function DELETE(request: NextRequest) {
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const slug = searchParams.get('slug');
-  
+  const latest = searchParams.get('latest');
+
+  if (latest) {
+    const post = await getLatestPost();
+    return NextResponse.json(post, { status: 200 });
+  }
+
   if (!slug) {
     // Get all posts sorted by date (newest first)
     const posts = await getSortedPostsData();

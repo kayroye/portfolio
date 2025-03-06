@@ -6,6 +6,8 @@ import Footer from '@/components/Footer';
 import Terminal from '@/components/Terminal';
 import TerminalText from '@/components/TerminalText';
 import { StaticTerminalText } from '@/components/TerminalText';
+import Image from 'next/image';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export default function Projects() {
   const [typingDone, setTypingDone] = useState(false);
@@ -26,34 +28,34 @@ export default function Projects() {
   const projects = [
     {
       id: 1,
-      title: "AI-Powered Task Manager",
-      description: "A task management application that uses machine learning to prioritize and categorize tasks based on user behavior patterns.",
-      technologies: ["React", "Node.js", "TensorFlow.js", "MongoDB"],
-      link: "https://github.com/username/ai-task-manager",
-      image: "/images/project1.jpg"
+      title: "Conclave",
+      description: "A real-time chat application that allows users to chat in groups with each other and large language models.",
+      technologies: ["React.js", "Next.js", "Vercel AI SDK", "Firebase", "Socket.io"],
+      link: "https://github.com/kayroye/Conclave",
+      image: "/images/conclave.png"
     },
     {
       id: 2,
-      title: "E-commerce Platform",
-      description: "A full-featured e-commerce platform with product management, shopping cart, payment processing, and order tracking.",
-      technologies: ["Next.js", "Express", "PostgreSQL", "Stripe API"],
-      link: "https://github.com/username/ecommerce-platform",
-      image: "/images/project2.jpg"
+      title: "Portfolio and Blog",
+      description: "This portfolio website you are currently viewing. I also have a blog where I write about my experiences and thoughts on various topics. Check it out at /blog!",
+      technologies: ["React.js", "Next.js", "Redis", "Vercel"],
+      link: "https://github.com/kayroye/portfolio",
+      image: "/images/portfolio.png"
     },
     {
       id: 3,
-      title: "Real-time Collaboration Tool",
-      description: "A collaborative workspace that allows teams to work together in real-time on documents, code, and design files.",
-      technologies: ["Vue.js", "Socket.io", "Redis", "AWS"],
-      link: "https://github.com/username/collab-tool",
-      image: "/images/project3.jpg"
+      title: "Prova",
+      description: "A web tool allowing you to interact with API endpoints via a chat interface, powered by OpenAI.",
+      technologies: ["React.js", "Next.js", "OpenAI API", "Supabase"],
+      link: "https://github.com/kayroye/Prova",
+      image: "/images/prova.png"
     },
     {
       id: 4,
-      title: "Personal Finance Dashboard",
-      description: "A dashboard for tracking personal finances, including expense categorization, budget planning, and financial goal setting.",
-      technologies: ["React", "D3.js", "Firebase", "Plaid API"],
-      link: "https://github.com/username/finance-dashboard",
+      title: "Coming Soon!",
+      description: "I'm working on a few more projects that I'll be adding to my portfolio soon. Check back soon for updates!",
+      technologies: ["Hard Work", "Patience", "Time"],
+      link: "",
       image: "/images/project4.jpg"
     }
   ];
@@ -74,12 +76,10 @@ export default function Projects() {
                 # Projects
               </div>
               <TerminalText 
-                typingSpeed={25} 
+                typingSpeed={15} 
                 onComplete={() => setTypingDone(true)}
               > 
-                Here are some of the projects I&apos;ve worked on. Each project&apos;s code is available on GitHub.
-                
-                Use the commands below to explore my portfolio or click on a project to view more details.
+                Here are some of the projects I&apos;ve worked on either in my free time or as part of a larger assignment. Feel free to click on any to view more details. Each project&apos;s code is available on GitHub.
               </TerminalText>
             </div>
             
@@ -111,6 +111,9 @@ export default function Projects() {
                         <p className="text-green-400 mb-3">
                           {project.description}
                         </p>
+                        <AspectRatio ratio={16 / 9}>
+                          <Image src={project.image} alt={project.title} fill className="object-cover" />
+                        </AspectRatio>
                         <a 
                           href={project.link}
                           target="_blank"
@@ -129,64 +132,26 @@ export default function Projects() {
             
             {showProjects && (
               <div className="mt-6">
-                <Terminal title="Project Commands">
-                  <div className="p-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="p-3 bg-black/40 border border-green-500/30 rounded">
-                        <div className="font-bold text-green-300 mb-1">sort --by-tech</div>
-                        <div className="text-sm text-green-400">
-                          Sort projects by technology stack
-                        </div>
-                      </div>
-                      
-                      <div className="p-3 bg-black/40 border border-green-500/30 rounded">
-                        <div className="font-bold text-green-300 mb-1">filter --frontend</div>
-                        <div className="text-sm text-green-400">
-                          Show only frontend projects
-                        </div>
-                      </div>
-                      
-                      <div className="p-3 bg-black/40 border border-green-500/30 rounded">
-                        <div className="font-bold text-green-300 mb-1">filter --backend</div>
-                        <div className="text-sm text-green-400">
-                          Show only backend projects
-                        </div>
-                      </div>
-                      
-                      <div className="p-3 bg-black/40 border border-green-500/30 rounded">
-                        <div className="font-bold text-green-300 mb-1">filter --fullstack</div>
-                        <div className="text-sm text-green-400">
-                          Show only full-stack projects
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Terminal>
-              </div>
-            )}
-            
-            {showProjects && (
-              <div className="mt-6">
                 <Terminal title="GitHub Stats">
                   <div className="p-4">
                     <div className="flex flex-col md:flex-row justify-between">
                       <div className="mb-4 md:mb-0">
-                        <div className="text-lg font-bold text-green-300">30+</div>
+                        <div className="text-lg font-bold text-green-300">6+</div>
                         <div className="text-sm text-green-500">Repositories</div>
                       </div>
                       
                       <div className="mb-4 md:mb-0">
-                        <div className="text-lg font-bold text-green-300">500+</div>
+                        <div className="text-lg font-bold text-green-300">100+</div>
                         <div className="text-sm text-green-500">Contributions</div>
                       </div>
                       
                       <div className="mb-4 md:mb-0">
-                        <div className="text-lg font-bold text-green-300">15+</div>
+                        <div className="text-lg font-bold text-green-300">3</div>
                         <div className="text-sm text-green-500">Open Source Projects</div>
                       </div>
                       
                       <div>
-                        <div className="text-lg font-bold text-green-300">5+</div>
+                        <div className="text-lg font-bold text-green-300">8+</div>
                         <div className="text-sm text-green-500">Years Coding</div>
                       </div>
                     </div>

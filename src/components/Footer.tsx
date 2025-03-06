@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 
@@ -34,12 +36,12 @@ export default function Footer({ isBlog = false }: FooterProps) {
             LinkedIn
           </Link>
           <Link 
-            href="https://twitter.com/kaywritescode" 
+            href="https://x.com/kaywritescode" 
             target="_blank" 
             rel="noopener noreferrer"
             className="hover:text-green-400 transition-colors"
           >
-            Twitter
+            X (formerly Twitter)
           </Link>
           {isBlog ? (
             <Link 
@@ -50,7 +52,7 @@ export default function Footer({ isBlog = false }: FooterProps) {
             </Link>
           ) : (
             <Link 
-              href="https://.kalanroye.com/" 
+              href="/blog" 
               className="hover:text-green-400 transition-colors"
             >
               Blog

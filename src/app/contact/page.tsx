@@ -38,22 +38,27 @@ export default function Contact() {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormStatus('submitting');
     
-    // Simulate form submission
+    // Prepare mailto URL with form data
+    const subject = `Message from ${formData.name} via Portfolio Site`;
+    const body = `${formData.message}`;
+    const mailtoUrl = `mailto:hello@kalanroye.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open mail client
+    window.location.href = mailtoUrl;
+    
+    // Show success message
+    setFormStatus('success');
+    
+    // Reset form after delay
     setTimeout(() => {
-      setFormStatus('success');
       setFormData({
         name: '',
         email: '',
         message: ''
       });
-      
-      // Reset form status after 3 seconds
-      setTimeout(() => {
-        setFormStatus('idle');
-      }, 3000);
-    }, 1500);
+      setFormStatus('idle');
+    }, 3000);
   };
   
   return (
@@ -68,7 +73,7 @@ export default function Contact() {
                 # Contact Information
               </div>
               <TerminalText 
-                typingSpeed={25} 
+                typingSpeed={15} 
                 onComplete={() => setTypingDone(true)}
               >
                 I&apos;m always open to new opportunities, collaborations, or just a friendly chat about the latest tech.
@@ -102,8 +107,8 @@ export default function Contact() {
                     </div>
                     
                     <div>
-                      <div className="text-sm text-green-500">Availability</div>
-                      <div className="text-green-300">Open to freelance, full-time, and internship opportunities</div>
+                      <div className="text-sm text-green-500">Open To</div>
+                      <div className="text-green-300">Freelance, Full-Time, and Internship Opportunities</div>
                     </div>
                   </div>
                   
@@ -132,7 +137,7 @@ export default function Contact() {
                         rel="noopener noreferrer"
                         className="text-green-400 hover:text-green-300"
                       >
-                        Twitter
+                        X (formerly Twitter)
                       </a>
                     </div>
                   </div>
@@ -197,7 +202,7 @@ export default function Contact() {
                     
                     {formStatus === 'success' && (
                       <div className="text-green-300 mt-2">
-                        Message sent successfully! I&apos;ll get back to you soon.
+                        Message sent successfully! Don&apos;t forget to click send! I&apos;ll get back to you soon.
                       </div>
                     )}
                     
