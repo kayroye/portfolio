@@ -88,7 +88,7 @@ export default function Home() {
           </div>
         </Terminal>
         
-        <Terminal title="Featured Project">
+        <Terminal title="Featured Project" className="mb-6">
           <div className="p-4">
             <div className="mb-2">
               <h2 className="text-xl font-bold text-green-300">Conclave</h2>
