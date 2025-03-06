@@ -3,9 +3,10 @@ import { notFound } from "next/navigation";
 import { getPostData } from "@/utils/blog";
 
 // Generate metadata for each blog post dynamically
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const { slug } = params;
-  
+
   try {
     // Fetch the blog post data using the utility function
     const post = await getPostData(slug);
