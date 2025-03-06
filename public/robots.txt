@@ -1,1 +1,5 @@
+User-agent: *
+Allow: /
 Allow: /api/og/*
+Disallow: /blog/admin
+Sitemap: https://kalanroye.com/sitemap.xml

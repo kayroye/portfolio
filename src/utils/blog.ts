@@ -9,7 +9,7 @@ export interface BlogPost {
   author?: string;
   categories: string[];
   content: string;
-  views?: number;
+  views?: string[];
 }
 
 import { createClient } from "@vercel/kv";

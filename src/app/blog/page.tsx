@@ -83,6 +83,7 @@ export default function BlogHome() {
                     slug={post.slug}
                     categories={post.categories}
                     coverImage={post.coverImage}
+                    viewCount={post.views?.length || 0}
                   />
                 ))}
               </div>

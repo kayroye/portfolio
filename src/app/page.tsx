@@ -114,12 +114,17 @@ export default function Home() {
         <Terminal title="Author's (me) Choice">
           <div className="p-4">
             <div className="mb-2">
-              <h2 className="text-xl font-bold text-green-300">Test Article</h2>
-              <p className="text-sm text-green-500 mb-3">2025-03-04</p>
-              <p className="text-sm text-green-500 mb-3">This is a test of the db!</p>
+              <h2 className="text-xl font-bold text-green-300">hello world</h2>
+              <p className="text-sm text-green-500 mb-3">Mar 5, 2025</p>
+              <p className="text-sm text-green-500 mb-3">A little introduction to me and my journey in code.</p>
+              
+              <div className="flex gap-2 mb-4">
+                <span className="bg-green-950 text-green-400 px-3 py-1 rounded-md text-xs">introduction</span>
+                <span className="bg-green-950 text-green-400 px-3 py-1 rounded-md text-xs">general thoughts</span>
+              </div>
 
               <Link 
-                href="/blog/posts/test-article"
+                href="/blog/posts/hello-world"
                 className="text-green-400 hover:underline inline-flex items-center"
               >
                 Read More

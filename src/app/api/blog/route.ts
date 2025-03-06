@@ -5,7 +5,7 @@ import { BlogPost } from "@/utils/blog";
 export async function POST(request: NextRequest) {
   const post: BlogPost = await request.json();
 
-  post.views = 0;
+  post.views = [];
 
   const saved = await saveBlogPost(post);
 
