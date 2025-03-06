@@ -91,22 +91,21 @@ export default function Home() {
         <Terminal title="Featured Project">
           <div className="p-4">
             <div className="mb-2">
-              <h2 className="text-xl font-bold text-green-300">Project Title</h2>
+              <h2 className="text-xl font-bold text-green-300">Conclave</h2>
               <div className="text-sm text-green-500 mb-3">
-                Technologies: React, Node.js, TypeScript
+                Technologies: React.js, Next.js, Firebase, Vercel AI SDK
               </div>
             </div>
             
             <p className="mb-4">
-              Brief description of the featured project. This section showcases one of your best works
-              to immediately capture visitors&apos; attention.
+              An open-source chat app that lets users interact with each other and their preferred large language models. Developed using Vercel’s AI SDK and Socket.io.
             </p>
             
             <Link 
               href="/projects"
               className="text-green-400 hover:underline inline-flex items-center"
             >
-              View Project Details
+              View All Projects
               <span className="ml-1">→</span>
             </Link>
           </div>
