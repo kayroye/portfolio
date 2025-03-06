@@ -39,9 +39,6 @@ export const metadata: Metadata = {
     creator: '@kaywritescode',
     images: ['https://kalanroye.com/og-home.png'],
   },
-  icons: {
-    icon: '/favicon.ico',
-  },
   robots: {
     index: true,
     follow: true,
