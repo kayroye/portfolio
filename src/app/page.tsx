@@ -28,7 +28,7 @@ export default function Home() {
       <NavigationBar />
       
       <main className="flex-1 container mx-auto p-4">
-        <Terminal title="kayroye.com | Terminal" className="mb-6">
+        <Terminal title="kalanroye.com | Terminal" className="mb-6">
           <div className="p-4">
             <div className="mb-4">
               <TerminalText 
