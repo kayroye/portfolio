@@ -71,7 +71,7 @@ export default function Contact() {
                 typingSpeed={25} 
                 onComplete={() => setTypingDone(true)}
               >
-                I&apos;m always open to new opportunities, collaborations, or just a friendly chat about technology.
+                I&apos;m always open to new opportunities, collaborations, or just a friendly chat about the latest tech.
                 
                 Feel free to reach out through any of the channels below or use the contact form to send me a message directly.
               </TerminalText>
