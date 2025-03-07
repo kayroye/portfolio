@@ -26,15 +26,26 @@ export default function EditPostPage(props: EditPostParams) {
   const router = useRouter();
 
   useEffect(() => {
-    // Check for saved authentication
-    const savedAuth = localStorage.getItem('blog_admin_auth');
-    if (savedAuth !== 'true') {
-      router.push('/blog/admin');
-      return;
-    }
+    // Check authentication status
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/verify');
+        const data = await response.json();
+        
+        if (response.ok && data.authenticated) {
+          setIsAuthenticated(true);
+          fetchPost();
+        } else {
+          // Redirect to admin login if not authenticated
+          router.push('/blog/admin');
+        }
+      } catch (error) {
+        console.error('Auth verification error:', error);
+        router.push('/blog/admin');
+      }
+    };
     
-    setIsAuthenticated(true);
-    fetchPost();
+    checkAuth();
   }, [router, slug]);
 
   const fetchPost = async () => {

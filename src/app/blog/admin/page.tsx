@@ -83,7 +83,6 @@ export default function AdminPage() {
         throw new Error('Failed to fetch posts');
       }
       const data = await response.json();
-      console.log(data);
       setPosts(data);
     } catch (error) {
       console.error('Error fetching posts:', error);

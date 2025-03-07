@@ -13,13 +13,25 @@ export default function NewPostPage() {
   const router = useRouter();
   
   useEffect(() => {
-    // Check for saved authentication
-    const savedAuth = localStorage.getItem('blog_admin_auth');
-    if (savedAuth !== 'true') {
-      router.push('/blog/admin');
-    } else {
-      setIsAuthenticated(true);
-    }
+    // Check authentication status
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/verify');
+        const data = await response.json();
+        
+        if (response.ok && data.authenticated) {
+          setIsAuthenticated(true);
+        } else {
+          // Redirect to admin login if not authenticated
+          router.push('/blog/admin');
+        }
+      } catch (error) {
+        console.error('Auth verification error:', error);
+        router.push('/blog/admin');
+      }
+    };
+    
+    checkAuth();
   }, [router]);
   
   const handleSubmit = async (post: BlogPost) => {
