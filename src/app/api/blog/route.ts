@@ -4,8 +4,11 @@ import { BlogPost } from "@/utils/blog";
 
 export async function POST(request: NextRequest) {
   const post: BlogPost = await request.json();
-
-  post.views = [];
+  
+  // Only initialize views array for new posts
+  if (!post.views) {
+    post.views = [];
+  }
 
   const saved = await saveBlogPost(post);
 
