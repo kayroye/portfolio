@@ -8,6 +8,7 @@ import TerminalText from '@/components/TerminalText';
 import { StaticTerminalText } from '@/components/TerminalText';
 import Image from 'next/image';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import Script from 'next/script';
 
 export default function Projects() {
   const [typingDone, setTypingDone] = useState(false);
@@ -66,101 +67,143 @@ export default function Projects() {
   
   return (
     <div className="min-h-screen bg-black text-green-400 font-mono flex flex-col">
+      <Script id="schema-portfolio" type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Kalan Roye Portfolio Projects",
+          "description": "A collection of software development projects by Kalan Roye",
+          "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": projects.map((project, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "item": {
+                "@type": "SoftwareSourceCode",
+                "name": project.title,
+                "description": project.description,
+                "codeRepository": project.link,
+                "programmingLanguage": {
+                  "@type": "ComputerLanguage",
+                  "name": project.technologies.join(', ')
+                },
+                "author": {
+                  "@type": "Person",
+                  "name": "Kalan Roye",
+                  "url": "https://kalanroye.com"
+                }
+              }
+            }))
+          }
+        })
+      }} />
+      
       <NavigationBar location="projects" />
       
       <main className="flex-1 container mx-auto p-4">
-        <Terminal title="projects.sh | ~/projects" className="mb-6">
-          <div className="p-4">
-            <div className="mb-4">
-              <div className="mt-6">
-                # Projects
+        <h1 className="sr-only">Kalan Roye&apos;s Projects Portfolio</h1>
+        <section aria-label="Projects Introduction">
+          <Terminal title="projects.sh | ~/projects" className="mb-6">
+            <div className="p-4">
+              <div className="mb-4">
+                <header>
+                  <h2 className="mt-6">
+                    # Projects
+                  </h2>
+                </header>
+                <TerminalText 
+                  typingSpeed={15} 
+                  onComplete={() => setTypingDone(true)}
+                > 
+                  Here are some of the projects I&apos;ve worked on either in my free time or as part of a larger assignment. Feel free to click on any to view more details. Each project&apos;s code is available on GitHub.
+                </TerminalText>
               </div>
-              <TerminalText 
-                typingSpeed={15} 
-                onComplete={() => setTypingDone(true)}
-              > 
-                Here are some of the projects I&apos;ve worked on either in my free time or as part of a larger assignment. Feel free to click on any to view more details. Each project&apos;s code is available on GitHub.
-              </TerminalText>
+              
+              {typingDone && (
+                <div className="mt-6">
+                  <StaticTerminalText showPrompt>ls -la ./projects</StaticTerminalText>
+                </div>
+              )}
+              
+              {showProjects && (
+                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {projects.map((project) => (
+                    <article 
+                      key={project.id}
+                      className={`
+                        p-4 bg-black/40 border border-green-500/30 rounded cursor-pointer
+                        hover:bg-green-900/20 transition-colors
+                        ${selectedProject === project.id ? 'bg-green-900/30 border-green-500/50' : ''}
+                      `}
+                      onClick={() => handleProjectSelect(project.id)}
+                    >
+                      <h3 className="text-lg font-bold text-green-300">{project.title}</h3>
+                      <div className="text-sm text-green-500 mb-2">
+                        {project.technologies.join(" • ")}
+                      </div>
+                      
+                      {selectedProject === project.id && (
+                        <div className="mt-3 border-t border-green-500/30 pt-3">
+                          <p className="text-green-400 mb-3">
+                            {project.description}
+                          </p>
+                          <AspectRatio ratio={16 / 9}>
+                            <Image 
+                              src={project.image} 
+                              alt={`Screenshot of ${project.title} project`} 
+                              fill 
+                              className="object-cover" 
+                            />
+                          </AspectRatio>
+                          <a 
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-green-300 hover:underline inline-flex items-center"
+                            aria-label={`View ${project.title} project on GitHub`}
+                          >
+                            View Project
+                            <span className="ml-1">→</span>
+                          </a>
+                        </div>
+                      )}
+                    </article>
+                  ))}
+                </div>
+              )}
+              
+              {showProjects && (
+                <section aria-label="GitHub Statistics" className="mt-6">
+                  <Terminal title="GitHub Stats">
+                    <div className="p-4">
+                      <div className="flex flex-col md:flex-row justify-between">
+                        <div className="mb-4 md:mb-0">
+                          <div className="text-lg font-bold text-green-300">9+</div>
+                          <div className="text-sm text-green-500">Repositories</div>
+                        </div>
+                        
+                        <div className="mb-4 md:mb-0">
+                          <div className="text-lg font-bold text-green-300">250+</div>
+                          <div className="text-sm text-green-500">Contributions</div>
+                        </div>
+                        
+                        <div className="mb-4 md:mb-0">
+                          <div className="text-lg font-bold text-green-300">3</div>
+                          <div className="text-sm text-green-500">Open Source Projects</div>
+                        </div>
+                        
+                        <div>
+                          <div className="text-lg font-bold text-green-300">8+</div>
+                          <div className="text-sm text-green-500">Years Coding</div>
+                        </div>
+                      </div>
+                    </div>
+                  </Terminal>
+                </section>
+              )}
             </div>
-            
-            {typingDone && (
-              <div className="mt-6">
-                <StaticTerminalText showPrompt>ls -la ./projects</StaticTerminalText>
-              </div>
-            )}
-            
-            {showProjects && (
-              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                {projects.map((project) => (
-                  <div 
-                    key={project.id}
-                    className={`
-                      p-4 bg-black/40 border border-green-500/30 rounded cursor-pointer
-                      hover:bg-green-900/20 transition-colors
-                      ${selectedProject === project.id ? 'bg-green-900/30 border-green-500/50' : ''}
-                    `}
-                    onClick={() => handleProjectSelect(project.id)}
-                  >
-                    <h3 className="text-lg font-bold text-green-300">{project.title}</h3>
-                    <div className="text-sm text-green-500 mb-2">
-                      {project.technologies.join(" • ")}
-                    </div>
-                    
-                    {selectedProject === project.id && (
-                      <div className="mt-3 border-t border-green-500/30 pt-3">
-                        <p className="text-green-400 mb-3">
-                          {project.description}
-                        </p>
-                        <AspectRatio ratio={16 / 9}>
-                          <Image src={project.image} alt={project.title} fill className="object-cover" />
-                        </AspectRatio>
-                        <a 
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-green-300 hover:underline inline-flex items-center"
-                        >
-                          View Project
-                          <span className="ml-1">→</span>
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-            
-            {showProjects && (
-              <div className="mt-6">
-                <Terminal title="GitHub Stats">
-                  <div className="p-4">
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div className="mb-4 md:mb-0">
-                        <div className="text-lg font-bold text-green-300">9+</div>
-                        <div className="text-sm text-green-500">Repositories</div>
-                      </div>
-                      
-                      <div className="mb-4 md:mb-0">
-                        <div className="text-lg font-bold text-green-300">250+</div>
-                        <div className="text-sm text-green-500">Contributions</div>
-                      </div>
-                      
-                      <div className="mb-4 md:mb-0">
-                        <div className="text-lg font-bold text-green-300">3</div>
-                        <div className="text-sm text-green-500">Open Source Projects</div>
-                      </div>
-                      
-                      <div>
-                        <div className="text-lg font-bold text-green-300">8+</div>
-                        <div className="text-sm text-green-500">Years Coding</div>
-                      </div>
-                    </div>
-                  </div>
-                </Terminal>
-              </div>
-            )}
-          </div>
-        </Terminal>
+          </Terminal>
+        </section>
       </main>
       
       <Footer />

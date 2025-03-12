@@ -28,11 +28,11 @@ export default function BlogPostCard({
   });
 
   return (
-    <Link href={`/blog/posts/${slug}`} className="block">
-      <div className="border border-green-500/30 rounded-md p-4 bg-black/50 hover:border-green-500/70 transition-colors">
-        <div className="flex flex-col">
+    <Link href={`/blog/posts/${slug}`} className="block h-full">
+      <div className="border border-green-500/30 rounded-md p-4 bg-black/50 hover:border-green-500/70 transition-colors h-[250px] flex flex-col">
+        <div className="flex flex-col h-full">
           {coverImage && (
-            <div className="relative w-full h-40 mb-3 overflow-hidden">
+            <div className="relative w-full h-40 mb-3 overflow-hidden flex-shrink-0">
               <Image
                 src={coverImage}
                 alt={title}
@@ -43,7 +43,7 @@ export default function BlogPostCard({
             </div>
           )}
           
-          <div className="flex justify-between items-center mb-1">
+          <div className="flex justify-between items-center mb-1 flex-shrink-0">
             <div className="font-mono text-xs text-green-500/70">{formattedDate}</div>
             <div className="font-mono text-xs text-green-500/70 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -54,12 +54,12 @@ export default function BlogPostCard({
             </div>
           </div>
           
-          <h3 className="text-green-400 text-lg font-semibold font-mono mb-2">{title}</h3>
+          <h3 className="text-green-400 text-lg font-semibold font-mono mb-2 flex-shrink-0 line-clamp-2">{title}</h3>
           
-          <p className="text-green-300/80 mb-3 font-mono text-sm">{excerpt}</p>
+          <p className="text-green-300/80 mb-3 font-mono text-sm flex-grow overflow-hidden line-clamp-4">{excerpt}</p>
           
           {categories.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2">
+            <div className="flex flex-wrap gap-2 mt-auto mb-2 flex-shrink-0">
               {categories.map((category, index) => (
                 <span 
                   key={index} 
@@ -71,7 +71,7 @@ export default function BlogPostCard({
             </div>
           )}
           
-          <div className="mt-2 text-green-500 font-mono text-sm hover:underline">
+          <div className="mt-auto text-green-500 font-mono text-sm hover:underline flex-shrink-0">
             Read more →
           </div>
         </div>
